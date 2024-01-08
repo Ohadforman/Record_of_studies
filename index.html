@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Degree Scores</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #007BFF;
+            text-align: center;
+        }
+
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            padding: 10px 15px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            text-align: center;
+            background-color: #333;
+            border: 1px solid #555;
+        }
+
+        .button.active {
+            background-color: #007BFF; /* Blue */
+        }
+
+        .button:hover {
+            opacity: 0.8;
+        }
+
+        .average-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .semester-section {
+            margin-bottom: 30px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .semester-table {
+            width: 48%;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        table {
+            width: 100%;
+            color: #fff;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+        }
+
+        th {
+            background-color: #444;
+        }
+
+        .marked-blue {
+            background-color: #007BFF; /* Blue */
+        }
+
+        /* Adjustments for fixed column widths */
+        .semester-table th:first-child,
+        .semester-table td:first-child,
+        .semester-table th:nth-child(2),
+        .semester-table td:nth-child(2),
+        .semester-table th:nth-child(3),
+        .semester-table td:nth-child(3) {
+            width: 33.33%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Ohad Forman Record of studies - B.sc EEE & Physics, Tel Aviv university</h1>
+
+    <div class="container">
+        <div class="buttons-container">
+            <button class="button" data-category="physics" onclick="markCourses('physics')">Physics Courses</button>
+            <button class="button" data-category="ee" onclick="markCourses('ee')">EEE Courses</button>
+            <button class="button" data-category="wave" onclick="markCourses('wave')">LAB Courses</button>
+            <button class="button" data-category="eewavesradiation" onclick="markCourses('eewavesradiation')">EM Waves and Radiation Specialty</button>
+            <button class="button" data-category="controltheory" onclick="markCourses('controltheory')">Control Theory Specialty</button>
+            <button class="button" data-category="programming" onclick="markCourses('programming')">Programming</button>
+        </div>
+
+        <div class="average-info">
+            <span>Average Score: <span id="average-score">N/A</span></span>
+            <span>Total Weight: <span id="total-weight">N/A</span></span>
+        </div>
+
+        <div class="semester-section">
+            <div class="semester-table" id="Semester_1">
+                <table>
+                    <tr>
+                        <th colspan="3">Semester 1</th>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                        <th>Weight</th>
+                    </tr>
+                    <tr class="course-row" data-course="Physics_Laboratory_A1">
+                        <td>Physics Laboratory A1</td>
+                        <td class="score">89</td>
+                        <td class="weight">3</td>
+                    </tr>
+                    <tr class="course-row" data-course="Classical_Physics_1">
+                        <td>Classical Physics 1</td>
+                        <td class="score">67</td>
+                        <td class="weight">6</td>
+                    </tr>
+                    <tr class="course-row" data-course="Introductory_Mathematics_for_Physicists1">
+                        <td>Introductory Mathematics for Physicists1</td>
+                        <td class="score">91</td>
+                        <td class="weight">6</td>
+                    </tr>
+                    <tr class="course-row" data-course="Calculus_1a_for_Physicists">
+                        <td>Calculus 1a for Physicists</td>
+                        <td class="score">60</td>
+                        <td class="weight">7</td>
+                    </tr>
+                    <tr class="course-row" data-course="Linear_Algebra_for_Electrical_Engineering">
+                        <td>Linear Algebra for Electrical Engineering</td>
+                        <td class="score">88</td>
+                        <td class="weight">6</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="semester-table" id="Semester_2">
+                <table>
+                    <tr>
+                        <th colspan="3">Semester 2</th>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                        <th>Weight</th>
+                    </tr>
+                    <tr class="course-row" data-course="Introduction_to_Thermodynamics_and_States_of_Matter">
+                        <td>Introduction to Thermodynamics and States of Matter</td>
+                        <td class="score">61</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Physics_Laboratory_A2">
+                        <td>Physics Laboratory A2</td>
+                        <td class="score">87</td>
+                        <td class="weight">3</td>
+                    </tr>
+                    <tr class="course-row" data-course="Classical_Physics_2">
+                        <td>Classical Physics 2</td>
+                        <td class="score">97</td>
+                        <td class="weight">6</td>
+                    </tr>
+                    <tr class="course-row" data-course="Special_Relativity">
+                        <td>Special Relativity</td>
+                        <td class="score">68</td>
+                        <td class="weight">2</td>
+                    </tr>
+                    <tr class="course-row" data-course="Introductory_Mathematics_for_Physicists_2">
+                        <td>Introductory Mathematics for Physicists 2</td>
+                        <td class="score">72</td>
+                        <td class="weight">3</td>
+                    </tr>
+                    <tr class="course-row" data-course="Programming_-_Python">
+                        <td>Programming - Python</td>
+                        <td class="score">97</td>
+                        <td class="weight">3</td>
+                    </tr>
+                    <tr class="course-row" data-course="Digital_Logic_Systems">
+                        <td>Digital Logic Systems</td>
+                        <td class="score">82</td>
+                        <td class="weight">3.5</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="semester-table" id="Semester_3">
+                <table>
+                    <tr>
+                        <th colspan="3">Semester 3</th>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                        <th>Weight</th>
+                    </tr>
+                    <tr class="course-row" data-course="Analytical_Mechanics">
+                        <td>Analytical Mechanics</td>
+                        <td class="score">98</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Physics_Laboratory_B1">
+                        <td>Physics Laboratory B1</td>
+                        <td class="score">99</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Methods_of_Theoretical_Physics_1">
+                        <td>Methods of Theoretical Physics 1</td>
+                        <td class="score">64</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Intr._to_Probability_and_Statistics">
+                        <td>Introduction to Probability and Statistics</td>
+                        <td class="score">84</td>
+                        <td class="weight">3.5</td>
+                    </tr>
+                    <tr class="course-row" data-course="Introduction_to_Devices">
+                        <td>Introduction to Devices</td>
+                        <td class="score">85</td>
+                        <td class="weight">2.5</td>
+                    </tr>
+                    <tr class="course-row" data-course="Linear_Circuits_and_Systems">
+                        <td>Linear Circuits and Systems</td>
+                        <td class="score">82</td>
+                        <td class="weight">5</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="semester-table" id="Semester_4">
+                <table>
+                    <tr>
+                        <th colspan="3">Semester 4</th>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                        <th>Weight</th>
+                    </tr>
+                    <tr class="course-row" data-course="Thermal_Physics">
+                        <td>Thermal Physics</td>
+                        <td class="score">74</td>
+                        <td class="weight">5</td>
+                    </tr>
+                    <tr class="course-row" data-course="Physics_Laboratory_B2">
+                        <td>Physics Laboratory B2</td>
+                        <td class="score">97</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Quantum_Theory_1">
+                        <td>Quantum Theory 1</td>
+                        <td class="score">68</td>
+                        <td class="weight">5</td>
+                    </tr>
+                    <tr class="course-row" data-course="Electronic_Devices">
+                        <td>Electronic Devices</td>
+                        <td class="score">65</td>
+                        <td class="weight">5.5</td>
+                    </tr>
+                    <tr class="course-row" data-course="Electromagnetic_Fields">
+                        <td>Electromagnetic Fields</td>
+                        <td class="score">79</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Signals_and_Systems">
+                        <td>Signals and Systems</td>
+                        <td class="score">74</td>
+                        <td class="weight">4</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="semester-table" id="Semester_5">
+                <table>
+                    <tr>
+                        <th colspan="3">Semester 5</th>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                        <th>Weight</th>
+                    </tr>
+                    <tr class="course-row" data-course="Data_Structures_and_Algorithms">
+                        <td>Data Structures and Algorithms</td>
+                        <td class="score">78</td>
+                        <td class="weight">0</td>
+                    </tr>
+                    <tr class="course-row" data-course="Analog_Electronic_Circuits">
+                        <td>Analog Electronic Circuits</td>
+                        <td class="score">84</td>
+                        <td class="weight">5.5</td>
+                    </tr>
+                    <tr class="course-row" data-course="Wave_Transmission_and_Distributed_Systems">
+                        <td>Wave Transmission and Distributed Systems</td>
+                        <td class="score">71</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Introduction_to_Control_Theory">
+                        <td>Introduction to Control Theory</td>
+                        <td class="score">90</td>
+                        <td class="weight">3</td>
+                    </tr>
+                    <tr class="course-row" data-course="Electronics_Laboratory_1">
+                        <td>Electronics - Laboratory (1)</td>
+                        <td class="score">95</td>
+                        <td class="weight">2</td>
+                    </tr>
+                    <tr class="course-row" data-course="Double_Stars_and_Planets">
+                        <td>Double Stars and Planets</td>
+                        <td class="score">88</td>
+                        <td class="weight">3</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="semester-table" id="Semester_6">
+                <table>
+                    <tr>
+                        <th colspan="3">Semester 6</th>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                        <th>Weight</th>
+                    </tr>
+                    <tr class="course-row" data-course="Methods_of_Theoretical_Physics_2">
+                        <td>Methods of Theoretical Physics 2</td>
+                        <td class="score">67</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Physics_Laboratory_C-sem_B">
+                        <td>Physics Laboratory C-sem. B</td>
+                        <td class="score">96</td>
+                        <td class="weight">9</td>
+                    </tr>
+                    <tr class="course-row" data-course="Introduction_to_physical_chemistry_for_physicists">
+                        <td>Introduction to physical chemistry for physicists</td>
+                        <td class="score">92</td>
+                        <td class="weight">3</td>
+                    </tr>
+                    <tr class="course-row" data-course="Digital_Electronic_Circuits">
+                        <td>Digital Electronic Circuits</td>
+                        <td class="score">69</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Electronics_Laboratory_2">
+                        <td>Electronics - Laboratory (2)</td>
+                        <td class="score">84</td>
+                        <td class="weight">2</td>
+                    </tr>
+                    <tr class="course-row" data-course="Microwave_Engineering">
+                        <td>Microwave Engineering</td>
+                        <td class="score">74</td>
+                        <td class="weight">4</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="semester-table" id="Semester_7">
+                <table>
+                    <tr>
+                        <th colspan="3">Semester 7</th>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                        <th>Weight</th>
+                    </tr>
+                    <tr class="course-row" data-course="Quantum_Theory_2">
+                        <td>Quantum Theory 2</td>
+                        <td class="score">69</td>
+                        <td class="weight">6</td>
+                    </tr>
+                    <tr class="course-row" data-course="Introduction_to_Solid_State_Physics">
+                        <td>Introduction to Solid State Physics</td>
+                        <td class="score">75</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Programming_2_C">
+                        <td>Programming 2 - C</td>
+                        <td class="score">85</td>
+                        <td class="weight">3.5</td>
+                    </tr>
+                    <tr class="course-row" data-course="Electronics_Laboratory_3">
+                        <td>Electronics - Laboratory (3)</td>
+                        <td class="score">75</td>
+                        <td class="weight">2</td>
+                    </tr>
+                    <tr class="course-row" data-course="Project">
+                        <td>Project</td>
+                        <td class="score">91</td>
+                        <td class="weight">6</td>
+                    </tr>
+                    <tr class="course-row" data-course="Passive_Microwave_Devices">
+                        <td>Passive Microwave Devices</td>
+                        <td class="score">100</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Space-systems_Engineering">
+                        <td>Space-systems Engineering</td>
+                        <td class="score">96</td>
+                        <td class="weight">4</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="semester-table" id="Semester_8">
+                <table>
+                    <tr>
+                        <th colspan="3">Semester 8</th>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                        <th>Weight</th>
+                    </tr>
+                    <tr class="course-row" data-course="Introduction_to_Particles_and_Nuclei">
+                        <td>Introduction to Particles and Nuclei</td>
+                        <td class="score">86</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Numerical_Analysis">
+                        <td>Numerical Analysis</td>
+                        <td class="score">92</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Spectral_Methods_for_Wavefields_Excitation_and_Radiation">
+                        <td>Spectral Methods for Wavefields Excitation and Radiation</td>
+                        <td class="score">75</td>
+                        <td class="weight">3</td>
+                    </tr>
+                    <tr class="course-row" data-course="Random_Signals_and_Noise">
+                        <td>Random Signals and Noise</td>
+                        <td class="score">73</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Practical_Feedback_Systems">
+                        <td>Practical Feedback Systems</td>
+                        <td class="score">91</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="A_C_Languague_Workshop">
+                        <td>A C Languague Workshop</td>
+                        <td class="score">91</td>
+                        <td class="weight">2</td>
+                    </tr>
+                    <tr class="course-row" data-course="Introduction_to_opto-electronic_devices">
+                        <td>Introduction to opto-electronic devices</td>
+                        <td class="score">89</td>
+                        <td class="weight">4</td>
+                    </tr>
+                    <tr class="course-row" data-course="Advanced_Laboratory_for_Microwaves">
+                        <td>Advanced Laboratory for Microwaves</td>
+                        <td class="score">100</td>
+                        <td class="weight">1.5</td>
+                    </tr>
+                </table>
+            </div>
+                        
+    </div>
+
+    <script>
+        var lastClickedPath = '';
+        var degree_data = {
+            'Semester 1': [
+                {'course': 'Physics Laboratory A1', 'score': 89, 'weight': 3, 'taken': True, 'marked': False},
+                {'course': 'Classical Physics 1', 'score': 67, 'weight': 6, 'taken': False, 'marked': False},
+                {'course': 'Introductory Mathematics for Physicists1', 'score': 91, 'weight': 6, 'taken': True, 'marked': False},
+                {'course': 'Calculus 1a for Physicists', 'score': 60, 'weight': 7, 'taken': False, 'marked': False},
+                {'course': 'Linear Algebra for Electrical Engineering', 'score': 88, 'weight': 6, 'taken': True, 'marked': False},
+            ],
+            'Semester 2': [
+                {'course': 'Introduction to Thermodynamics and States of Matter', 'score': 61, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Physics Laboratory A2', 'score': 87, 'weight': 3, 'taken': True, 'marked': False},
+                {'course': 'Classical Physics 2', 'score': 97, 'weight': 6, 'taken': False, 'marked': False},
+                {'course': 'Special Relativity', 'score': 68, 'weight': 2, 'taken': True, 'marked': False},
+                {'course': 'Introductory Mathematics for Physicists 2', 'score': 72, 'weight': 3, 'taken': True, 'marked': False},
+                {'course': 'Programming - Python', 'score': 97, 'weight': 3, 'taken': False, 'marked': False},
+                {'course': 'Digital Logic Systems', 'score': 82, 'weight': 3.5, 'taken': False, 'marked': False},
+            ],
+            'Semester 3': [
+                {'course': 'Analytical Mechanics', 'score': 98, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Physics Laboratory B1', 'score': 99, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Methods of Theoretical Physics 1', 'score': 64, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Intr. to Probability and Statistics', 'score': 84, 'weight': 3.5, 'taken': True, 'marked': False},
+                {'course': 'Introduction to Devices', 'score': 85, 'weight': 2.5, 'taken': True, 'marked': False},
+                {'course': 'Linear Circuits and Systems', 'score': 82, 'weight': 5, 'taken': True, 'marked': False},
+            ],
+            'Semester 4': [
+                {'course': 'Thermal Physics', 'score': 74, 'weight': 5, 'taken': True, 'marked': False},
+                {'course': 'Physics Laboratory B2', 'score': 97, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Quantum Theory 1', 'score': 68, 'weight': 5, 'taken': True, 'marked': False},
+                {'course': 'Electronic Devices', 'score': 65, 'weight': 5.5, 'taken': True, 'marked': False},
+                {'course': 'Electromagnetic Fields', 'score': 79, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Signals and Systems', 'score': 74, 'weight': 4, 'taken': True, 'marked': False},
+            ],
+            'Semester 5': [
+                {'course': 'Data Structures and Algorithms', 'score': 78, 'weight': 0, 'taken': True, 'marked': False},
+                {'course': 'Analog Electronic Circuits', 'score': 84, 'weight': 5.5, 'taken': True, 'marked': False},
+                {'course': 'Wave Transmission and Distributed Systems', 'score': 71, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Introduction to Control Theory', 'score': 90, 'weight': 3, 'taken': True, 'marked': False},
+                {'course': 'Electronics - Laboratory (1)', 'score': 95, 'weight': 2, 'taken': True, 'marked': False},
+                {'course': 'Double Stars and Planets', 'score': 88, 'weight': 3, 'taken': True, 'marked': False},
+            ],
+            'Semester 6': [
+                {'course': 'Methods of Theoretical Physics 2', 'score': 67, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Physics Laboratory C-sem. B', 'score': 96, 'weight': 9, 'taken': True, 'marked': False},
+                {'course': 'Introduction to physical chemistry for physicists', 'score': 92, 'weight': 3, 'taken': True, 'marked': False},
+                {'course': 'Digital Electronic Circuits', 'score': 69, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Electronics - Laboratory (2)', 'score': 84, 'weight': 2, 'taken': True, 'marked': False},
+                {'course': 'Microwave Engineering', 'score': 74, 'weight': 4, 'taken': True, 'marked': False},
+            ],
+            'Semester 7': [
+                {'course': 'Quantum Theory 2', 'score': 69, 'weight': 6, 'taken': True, 'marked': False},
+                {'course': 'Introduction to Solid State Physics', 'score': 75, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Programming 2 - C', 'score': 85, 'weight': 3.5, 'taken': True, 'marked': False},
+                {'course': 'Electronics - Laboratory (3)', 'score': 75, 'weight': 2, 'taken': True, 'marked': False},
+                {'course': 'Project', 'score': 91, 'weight': 6, 'taken': True, 'marked': False},
+                {'course': 'Passive Microwave Devices', 'score': 100, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Space-systems Engineering', 'score': 96, 'weight': 4, 'taken': True, 'marked': False},
+            ],
+            'Semester 8': [
+                {'course': 'Introduction to Particles and Nuclei', 'score': 86, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Numerical Analysis', 'score': 92, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Spectral Methods for Wavefields Excitation and Radiation', 'score': 75, 'weight': 3, 'taken': True, 'marked': False},
+                {'course': 'Random Signals and Noise', 'score': 73, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Practical Feedback Systems', 'score': 91, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'A C Languague Workshop', 'score': 91, 'weight': 2, 'taken': True, 'marked': False},
+                {'course': 'Introduction to opto-electronic devices', 'score': 89, 'weight': 4, 'taken': True, 'marked': False},
+                {'course': 'Advanced Laboratory for Microwaves', 'score': 100, 'weight': 1.5, 'taken': True, 'marked': False},
+            ],
+        };
+
+        function markCourses(path) {
+            var markedCourses = getCoursesForPath(path);
+            var buttons = document.querySelectorAll('.button');
+
+            clearMarks(lastClickedPath);
+
+            buttons.forEach(function (button) {
+                if (button.dataset.category === path) {
+                    button.classList.toggle('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            if (lastClickedPath === path) {
+                lastClickedPath = '';
+            } else {
+                markedCourses.forEach(function (course) {
+                    var rows = document.querySelectorAll('.course-row[data-course="' + course + '"]');
+                    rows.forEach(function (row) {
+                        row.classList.add('marked-blue');
+                    });
+                });
+
+                lastClickedPath = path;
+            }
+
+            showMarkedCourses();
+        }
+
+        function clearMarks(path) {
+            var markedCourses = getCoursesForPath(path);
+
+            markedCourses.forEach(function (course) {
+                var rows = document.querySelectorAll('.course-row[data-course="' + course + '"]');
+                rows.forEach(function (row) {
+                    row.classList.remove('marked-blue');
+                });
+            });
+        }
+
+        function updateButtonStyle(path) {
+            var buttons = document.querySelectorAll('.button');
+            buttons.forEach(function (button) {
+                button.classList.remove('active');
+            });
+            var activeButton = document.querySelector('.button[data-category="' + path + '"]');
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
+        
+        function getCoursesForPath(path) {
+        if (path === 'physics') {
+            return ['Introductory_Mathematics_for_Physicists1', 'Physics_Laboratory_A1', 'Classical_Physics_1', 'Introductory_Mathematics_for_Physicists_1', 'Calculus_1a_for_Physicists', 'Introduction_to_Thermodynamics_and_States_of_Matter', 'Physics_Laboratory_A2', 'Classical_Physics_2', 'Special_Relativity', 'Introductory_Mathematics_for_Physicists_2', 'Analytical_Mechanics', 'Physics_Laboratory_B1', 'Methods_of_Theoretical_Physics_1', 'Thermal_Physics', 'Physics_Laboratory_B2', 'Quantum_Theory_1', 'Double_Stars_and_Planets', 'Methods_of_Theoretical_Physics_2', 'Physics_Laboratory_C-sem._B', 'Introduction_to_physical_chemistry_for_physicists', 'Quantum_Theory_2', 'Introduction_to_Solid_State_Physics', 'Introduction_to_Particles_and_Nuclei'];
+        } else if (path === 'ee') {
+            return ['Linear_Algebra_for_Electrical_Engineering', 'Programming_-_Python', 'Digital_Logic_Systems', 'Intr._to_Probability_and_Statistics', 'Introduction_to_Devices', 'Linear_Circuits_and_Systems', 'Electronic_Devices', 'Electromagnetic_Fields', 'Signals_and_Systems', 'Data_Structures_and_Algorithms', 'Analog_Electronic_Circuits', 'Wave_Transmission_and_Distributed_Systems', 'Introduction_to_Control_Theory', 'Electronics_-_Laboratory_(1)', 'Digital_Electronic_Circuits', 'Electronics_-_Laboratory_(2)', 'Electronics_-_Laboratory_(3)', 'Microwave_Engineering', 'Programming_2_-_C', 'Project', 'Passive_Microwave_Devices', 'Space-systems_Engineering', 'Numerical_Analysis', 'Spectral_Methods_for_Wavefields_Excitation_and_Radiation', 'Random_Signals_and_Noise', 'Practical_Feedback_Systems', 'A_C_Language_Workshop', 'Introduction_to_opto-electronic_devices', 'Advanced_Laboratory_for_Microwaves', 'A_C_Languague_Workshop'];
+        } else if (path === 'wave') {
+            return ['Physics_Laboratory_A1', 'Physics_Laboratory_A2', 'Physics_Laboratory_B1', 'Physics_Laboratory_B2', 'Physics_Laboratory_C-sem._B', 'Advanced_Laboratory_for_Microwaves', 'Electronics_-_Laboratory_(1)', 'Electronics_-_Laboratory_(2)', 'Electronics_-_Laboratory_(3)'];
+        } else if (path === 'eewavesradiation') {
+            return ['Advanced_Laboratory_for_Microwaves', 'Spectral_Methods_for_Wavefields_Excitation_and_Radiation', 'Passive_Microwave_Devices', 'Microwave_Engineering'];
+        } else if (path === 'controltheory') {
+            return ['Practical_Feedback_Systems', 'Project'];
+        } else if (path === 'programming') {
+            return ['A_C_Languague_Workshop', 'Programming_2_-_C', 'Programming_-_Python'];
+        }
+        return [];
+    }
+
+
+
+
+        function showMarkedCourses() {
+            var markedRows = document.querySelectorAll('.marked-blue');
+            var allRows = document.querySelectorAll('.course-row');
+            var averageScoreElement = document.getElementById('average-score');
+            var totalWeightElement = document.getElementById('total-weight');
+
+            if (markedRows.length > 0) {
+                allRows.forEach(function (row) {
+                    row.style.display = 'none';
+                });
+
+                markedRows.forEach(function (row) {
+                    row.style.display = '';
+                });
+
+                calculateAverages(markedRows);
+            } else {
+                allRows.forEach(function (row) {
+                    row.style.display = '';
+                });
+
+                calculateAverages(allRows);
+            }
+        }
+
+        function calculateAverages(rows) {
+            var totalScore = 0;
+            var totalWeight = 0;
+
+            rows.forEach(function (row) {
+                var score = parseFloat(row.querySelector('.score').textContent);
+                var weight = parseFloat(row.querySelector('.weight').textContent);
+
+                if (!isNaN(score)) {
+                    totalScore += score * weight;
+                    totalWeight += weight;
+                }
+            });
+
+            var averageScore = totalWeight !== 0 ? totalScore / totalWeight : 0;
+            document.getElementById('average-score').textContent = averageScore.toFixed(2);
+            document.getElementById('total-weight').textContent = totalWeight.toFixed(2);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            showMarkedCourses();
+        });
+    </script>
+</body>
+
+</html>
